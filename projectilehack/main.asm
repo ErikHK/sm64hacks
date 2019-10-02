@@ -87,7 +87,7 @@ NOP
 
 ;check timer
 LW T1, 0x154(A0)
-LI T2, 0x100
+LI T2, 0x60
 BLT T1, T2, afterkillself
 NOP
 killself:
@@ -172,14 +172,52 @@ ADDIU SP, SP, 0xFFE8
 SW RA, 0x14 (SP)
 
 
-;count how many bobombs there are:
+;star already spawned?
+LUI T0, 0x8034
+LB T4, 0xb104(T0)
+LI T3, 0x1
+BEQ T4, T3, dontcreatestar
+NOP
+
+;count how many goombas there are:
 LUI A0, 0x1300
-ADDI A0, 0x3174 ;bobomb
+ADDI A0, 0x472C ;goomba
 JAL 0x8029FBDC
 NOP
-LUI T0, 0x8033
-SW V0, 0x0(T0)
+LUI T0, 0x8034
+SB V0, 0xb100(T0)
 
+
+LI T3, 0x3
+
+BNE V0, T3, dontcreatestar
+NOP
+
+createstar:
+LUI T0, 0x0
+ORI T0, T0, 0x0 ;x
+MTC1 T0, F12
+LUI T0, 0x442C ;y
+MTC1 T0, f14
+LUI A2, 0x0 
+ORI A2, A2, 0x0 ;z
+JAL 0x802f2b88
+NOP
+;lui t0, 0x0400
+;sw t0, 0x0188 (V0) ;set star number
+;lui t0, 0x8036
+;lw t0, 0x1160 (T0)
+;sw r0, 0x0074 (T0)
+
+
+
+;SW R0, 0x0(T0)
+LUI T0, 0x8034
+LI T3, 0x1
+SB T3, 0xb104(T0)
+
+dontcreatestar:
+NOP
 
 ;check if zoomed in, in that case, do everything etc
 LUI A0, 0x8033

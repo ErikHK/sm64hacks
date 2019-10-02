@@ -1,0 +1,197 @@
+800f0a1c, 8033c536	kameravärde, 0xE800 när man tittar uppåt, 0x2AAA när man tittar neråt
+8033c770		samma, men 0xE000 till 0x38e3, här kan man styra kameran!
+8033c568		kanske vektor x,y,z, nah är nog bara pos
+8033BB3C		verkar vara något slags vektorvärde!!
+
+
+
+8029ef64?
+802d66c0?
+
+
+8033b170	marios struct börjar här
+8033B1B0	y-värde	som kan styras! float (+0x40) y är uppåt
+8033b1b8	x-hastighet?
+8033b1bc	y-hastighet!
+8033b1c0	z-hastighet?
+8033b1c4	hastighet, endast i luften!
+
+
+803404ac	andra goombans y-värde! borde börja på 0x80340408?
+80340614	goombas behavior ID! pekar till 800ef8ac, 1300472c!
+
+803404c0	ändra goombans hastighet! 0xac + 0x14 som mario!
+
+80361160	pekare till nåt enligt nån på discord
+
+8033ff48	något annat objekt? 0x8033ffec
+
+
+
+8029f430	kolla skalning
+8029f438	NOP, 00000000
+8029f444	NOP, 00000000, gör så att man kan ändra skalning själv i y :)
+
+
+
+8033C6A4	camera x
+8033C6A8	camera y, är 125 enheter ovanför marios y!
+8033C6AC	camera z
+
+8033b1ac	mario x
+8033b1b0	mario y
+8033b1b4	mario z
+
+
+
+
+80288F2C	körs när man zoomar in!!
+80332609	denna byte är 0x12 när man är inzoomad, och 0x02 när man inte är, 1 om det är mariokamera
+
+
+802c9388	nåt med collision
+
+802c91ec	kolla detta, körs vid kollision! körs t.ex. från 802c9470
+802c92d8	körs ej vid skyltar, men vid kollision mellan mario och goomba!
+80323a50
+
+802e6bd4	CheckBobombInteractions
+
+802a0568	mark_object_for_deletion
+
+802c9178	lägger till pekare till objekt som nuvarande objekt krockar med!!
+
+
+802a0568	kör denna med object-pekare i A0 för att ta bort objekt!
+
+goomba+0x20c har skript 800ef8ac
+
+
+
+802c9454	körs vid kollision!! iaf mellan mario och goomba
+
+
+802c8fe4	verkar köra lite matematik för kollision!
+
+
+8033d270	gObjectCounter
+
+8029fbdc	count_objects_with_behavior
+8029fc8c	stanna här
+
+;disable bobomb:
+
+funktion vid 802c9b68? ta bort genom att sätta nop på 8029CE14!
+
+NOP på 802E4D54, 802E4D74, 802e4d5c så rör de sig inte!
+802a1234 - nåt med hast?
+802e44ac - ändrar hast i y-led, grav? kraschar när det är nop här..
+802e44ec - ändrar också hast i y-led kraschar här med...
+
+
+
+;lui $T0, 0x8033
+;l.s $F1, 0xC6A4(T0)
+;l.s $F2, 0xB1AC(T0)
+;sub.s $F3, $F1, $F2
+;s.s $F3, 0xC6F4(T0)
+
+
+
+The unmodified base .z64 US ROM should have md5 checksum 20b854b239203baf6c961b850a4a51a2 and the expanded ROM should have d0123cbb524a7358d99d97a0ce94d742
+
+.org är + 0x80245000!
+
+
+
+80325310	cosf!!
+80325480	sinf!!
+8029edcc	spawnobj, 
+
+
+
+
+
+
+80330E94 0003
+
+812CB2A6 0020
+
+812CB2B8 3C0B
+812CB2BA 8034
+812CB2BC 8D6C
+812CB2BE D3D0
+812CB2C0 856B
+812CB2C2 D3D4
+
+812CB2CC 8724
+812CB2CE 2448
+
+812CB2E4 2404
+812CB2E6 0090
+812CB2E8 2405
+812CB2EA 0008
+812CB2EC 3C06
+812CB2EE 8034
+812CB2F0 0C0B
+812CB2F2 59B0
+812CB2F4 24C6
+812CB2F6 D3E0
+812CB2F8 1000
+812CB2FA 0022
+
+8133D2DE 0001
+
+8133D3E0 5945
+8133D3D0 1300
+8133D3D2 3174
+8133D3D4 00BC
+8133D3D8 0001
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+80330E94	03000000
+8133D2DE	00010000
+8133D3E0	59450000
+8133D3D0	13003174
+8133D3D4	00BC0000
+8133D3D8	00010000
+802CB2A4	31090020
+802CB2A8	1120000E
+802CB2AC	00000000
+802CB2B0	3C0A8036
+802CB2B4	8D4A1160
+802CB2B8	3C0B8034
+802CB2BC	8D6CD3D0
+802CB2C0	856BD3D4
+802CB2C4	AFAB0014
+802CB2C8	AFAC0018
+802CB2CC	87242448
+802CB2D0	00002825
+802CB2D4	24060064
+802CB2D8	240700C8
+802CB2DC	0C0A7BD9
+802CB2E0	AFAA0010
+802CB2E4	24040090
+802CB2E8	24050008
+802CB2EC	3C068034
+802CB2F0	0C0B59B0
+802CB2F4	24C6D3E0
+802CB2F8	10000022
+802CB2FC	3C188036
+802CB300	8F181160
